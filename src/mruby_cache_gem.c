@@ -80,10 +80,18 @@ local_memcache_t *rb_lmc_check_handle_access(mrb_state *mrb, rb_lmc_handle_t *h)
   return h->lmc;
 }
 
+static void
+mrb_lmc_free(mrb_state *mrb, void *ptr)
+{
+  lmc_error_t e;
+  local_memcache_free(((rb_lmc_handle_t*)ptr)->lmc, &e);
+  mrb_free(mrb, ptr);
+}
+
 #define LMC_CACHE_KEY            "$lmc_cache"
 
 static const struct mrb_data_type lmc_cache_type = { 
-    LMC_CACHE_KEY, mrb_free
+  LMC_CACHE_KEY, mrb_lmc_free
 };
 
 mrb_value
