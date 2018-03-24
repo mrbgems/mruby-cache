@@ -6,4 +6,6 @@ MRuby::Gem::Specification.new('mruby-cache') do |spec|
   else
     spec.linker.libraries << ['pthread', 'rt']
   end
+
+  add_test_dependency 'mruby-io'
 end
