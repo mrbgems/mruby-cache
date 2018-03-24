@@ -82,8 +82,16 @@ local_memcache_t *rb_lmc_check_handle_access(mrb_state *mrb, rb_lmc_handle_t *h)
 
 #define LMC_CACHE_KEY            "$lmc_cache"
 
+static void
+mrb_lmc_free(mrb_state *mrb, void *p)
+{
+  lmc_error_t e;
+  local_memcache_free(((rb_lmc_handle_t*)p)->lmc, &e);
+  mrb_free(mrb, p);
+}
+
 static const struct mrb_data_type lmc_cache_type = { 
-    LMC_CACHE_KEY, mrb_free
+    LMC_CACHE_KEY, mrb_lmc_free
 };
 
 mrb_value
@@ -377,6 +385,7 @@ void
 mrb_mruby_cache_gem_init(mrb_state *mrb) {
   lmc_init();
   Cache = mrb_define_class(mrb, "Cache", mrb->object_class);
+  MRB_SET_INSTANCE_TT(Cache, MRB_TT_DATA);
   mrb_define_singleton_method(mrb, (struct RObject*)Cache, "_new", Cache__new2, MRB_ARGS_REQ(1));
   mrb_define_singleton_method(mrb, (struct RObject*)Cache, "drop", 
       Cache__drop, MRB_ARGS_REQ(1));
