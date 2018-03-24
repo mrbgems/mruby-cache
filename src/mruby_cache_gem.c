@@ -19,14 +19,14 @@ long long_value(mrb_value i) { return mrb_nil_p(i) ? 0 : (long)mrb_fixnum(i); }
 double double_value(mrb_value i) { return mrb_float(i); }
 
 /* :nodoc: */
-char *rstring_ptr(mrb_value s) { 
-  char* r = mrb_nil_p(s) ? "nil" : RSTRING_PTR(s); 
+char const *rstring_ptr(mrb_value s) { 
+  char const* r = mrb_nil_p(s) ? "nil" : RSTRING_PTR(s); 
   return r ? r : "nil";
 }
 
 /* :nodoc: */
-char *rstring_ptr_null(mrb_value s) { 
-  char* r = mrb_nil_p(s) ? NULL : RSTRING_PTR(s); 
+char const *rstring_ptr_null(mrb_value s) { 
+  char const* r = mrb_nil_p(s) ? NULL : RSTRING_PTR(s); 
   return r ? r : NULL;
 }
 

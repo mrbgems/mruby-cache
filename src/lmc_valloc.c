@@ -89,7 +89,7 @@ size_t lmc_total_shm_size(void *base) {
   return md->total_size + sizeof(lmc_mem_descriptor_t);
 }
 
-lmc_mem_status_t lmc_status(void *base, char *where) {
+lmc_mem_status_t lmc_status(void *base, char const *where) {
   lmc_mem_descriptor_t *md = base;
   lmc_mem_chunk_descriptor_t* c = md_first_free(base);
   lmc_mem_status_t ms;

@@ -40,7 +40,7 @@ typedef struct {
 
 size_t lmc_valloc(void *base, size_t size);
 void lmc_free(void *base, size_t chunk);
-lmc_mem_status_t lmc_status(void *base, char *where);
+lmc_mem_status_t lmc_status(void *base, char const *where);
 int is_lmc_already_initialized(void *base);
 void lmc_init_memory(void *ptr, size_t size);
 size_t lmc_get_db_version(void *ptr);
